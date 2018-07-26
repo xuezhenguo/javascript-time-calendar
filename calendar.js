@@ -17,12 +17,12 @@ Calendar.prototype = {
 		this.dateInput.readOnly = false; //只读
 		var parent = this;
 		this.dateInput.onclick = function(event){
-			parent.onDateInputClick(event);            //点击日期框时显示日历                
+			parent.onDateInputClick(event);            //点击日期框时显示日历
 		};
 		this.contains.onblur = function(){
 			parent.datePicker.style.display = 'none';
 		}
-		
+
 		this.dateInput.addEventListener('change', function(){
 			var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;;
 			var regExp =new RegExp(reg);
@@ -30,7 +30,7 @@ Calendar.prototype = {
  				alert("时间格式不正确,正确格式为: 2014-01-01");
 				this.value = ''
  			}
-			parent.onDateInputClick(event);            //点击日期框时显示日历                
+			parent.onDateInputClick(event);            //点击日期框时显示日历
 		})
 		document.addEventListener('click', function (e) {
 	      /*
@@ -57,11 +57,11 @@ Calendar.prototype = {
 		this.contains.appendChild(this.dateInput);
 		this.contains.appendChild(this.icon);
 		this.contains.appendChild(this.datePicker);
-		this.parentElement.appendChild(this.contains);	
+		this.parentElement.appendChild(this.contains);
 	},
 	drawShowDateBar: function(parentElement, data){
-		console.log('drawShowDateBar:', data)
-		data = data ? new Date(data) : ''
+		// console.log('drawShowDateBar:', data)
+		data = data ? new Date(data) : ''//关联填写的时间
 		var parent = this;
 		var nowDate = data || new Date();
 		parentElement.date = nowDate;
@@ -92,7 +92,7 @@ Calendar.prototype = {
 		this.changeShowDateBar(nowDate);   //插入到showTimeBar之后，初始化，传入的参数是现在的时间
 		var yearInput = parentElement.firstChild;
 		//年选择框点击显示和隐藏选择列表
-		yearInput.onclick = function(){     //target和this的区别  target是触发事件的元素，this是处理事件的元素  
+		yearInput.onclick = function(){     //target和this的区别  target是触发事件的元素，this是处理事件的元素
 			var ul = this.lastChild;
 			ul.style.display==='none'||ul.style.display==='none'? ul.style.display='inline-block':ul.style.display='none';
 		};
@@ -131,7 +131,7 @@ Calendar.prototype = {
 			}
 			//console.log(parent.showDateBar.date.toLocaleDateString()+'click');
 			parent.changeShowDateBar(parent.showDateBar.date);
-			
+
 		}
 		monthInput.children[1].onchange = function(){
 			parent.showDateBar.date.setMonth(this.selectedIndex);
@@ -154,7 +154,7 @@ Calendar.prototype = {
 				//console.log(parent.showDateBar.date.toLocaleDateString()+'dayclick');;
 			}
 			parent.changeShowDateBar(parent.showDateBar.date);
-			
+
 		};
 		dayInput.lastChild.onclick = function(){
 			var dayOptions = this.previousSibling;
@@ -162,10 +162,10 @@ Calendar.prototype = {
 			if(dayOptions.selectedIndex < dayOptions.length-1){
 				dayOptions.selectedIndex++;
 				//console.log(dayOptions.selectedIndex);
-				parent.showDateBar.date.setDate(dayOptions.selectedIndex+1);	
+				parent.showDateBar.date.setDate(dayOptions.selectedIndex+1);
 			}else{
 				parent.showDateBar.date.setDate(1);
-				parent.showDateBar.date.setMonth(parent.showDateBar.date.getMonth()+1);	
+				parent.showDateBar.date.setMonth(parent.showDateBar.date.getMonth()+1);
 			}
 			parent.changeShowDateBar(parent.showDateBar.date);
 		};
@@ -179,7 +179,7 @@ Calendar.prototype = {
 			parent.drawPicker(new Date());
 			parent.changeShowDateBar(new Date());
 		}
-			
+
 	},
 	changeShowDateBar : function(date){
 		//this.showDateBar.date = new Date(date);   //要将传入的date保存，因为下面调用的函数会改变date
@@ -254,7 +254,7 @@ Calendar.prototype = {
 				/*if(target.className.indexOf("dt-unshow")!==-1){
 					parent.drawPicker(new Date(target.year, target.month-1, target.date)); //如果点击非本月的日期，则重绘日历表
 				}*/
-				parent.changeShowDateBar(new Date(target.year, target.month-1, target.date));	
+				parent.changeShowDateBar(new Date(target.year, target.month-1, target.date));
 			};
 			dateBox.appendChild(span);  //将span添加到dateBox中
 		}
@@ -272,7 +272,7 @@ Calendar.prototype = {
 		return Math.ceil((newTime - time) / (24 * 60 * 60 * 1000));
 	},
 	//日期框点击时显示日历
-	onDateInputClick: function(event) {  
+	onDateInputClick: function(event) {
 		var target = event.target;
 		var value = target.value;
 		var datePicker = this.datePicker;
@@ -280,10 +280,10 @@ Calendar.prototype = {
 			datePicker.style.display = 'block';
 		}else{
 			datePicker.style.display = 'none';
-			return; 
+			return;
 		}
-		value ? this.drawShowDateBar(this.showDateBar, value) : this.drawShowDateBar(this.showDateBar)//绘制日历的显示栏 
-		// if (!value) this.drawShowDateBar(this.showDateBar);  //绘制日历的显示栏 
+		value ? this.drawShowDateBar(this.showDateBar, value) : this.drawShowDateBar(this.showDateBar)//绘制日历的显示栏
+		// if (!value) this.drawShowDateBar(this.showDateBar);  //绘制日历的显示栏
 	},
 	changeDate : function(year, month, date){
 		this.dateInput.value = year+"-"+(month<10?("0"+month):month)+"-"+(date<10?("0"+date):date);

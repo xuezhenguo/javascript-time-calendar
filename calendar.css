@@ -43,14 +43,14 @@
 	color: #08c;
 }
 .dt-show-date button:focus{
-	
+
 }
 .dt-show-date button:hover{
 	cursor: pointer;
 	color: #7bb4ac;
 }
-.dt-datepicker-container div.year-input , 
-.dt-datepicker-container div.month-input, 
+.dt-datepicker-container div.year-input ,
+.dt-datepicker-container div.month-input,
 .dt-datepicker-container div.day-input{
 	display: inline-block;
 	height: 24px;
@@ -132,11 +132,11 @@
 .dt-date-box span:hover{
 	cursor: pointer;
 }
-.dt-date-box .unshow{
+.dt-date-box .dt-unshow{
 	color: #999;
 	background-color : #fff;
 }
-.dt-date-box .show{
+.dt-date-box .dt-show{
 	color : #333;
 	background-color : #f6f6f6;
 }
